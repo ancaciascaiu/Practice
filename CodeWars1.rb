@@ -5,3 +5,25 @@
 # DNA_strand ("GTAT") # return "CATA"
 
 
+def DNA_strand(dna)
+
+  new_dna = ""
+  dna.each_char do |letter|
+
+    if letter == "A"
+      new_dna += "T"
+    elsif letter == "T"
+    	new_dna += "A"
+    elsif letter == "C"
+    	new_dna += "G"
+    elsif letter == "G"
+    	new_dna += "C"
+    else
+    	new_dna += letter
+    end
+    
+  end
+  return new_dna
+end
+
+p DNA_strand("ATTGC")
