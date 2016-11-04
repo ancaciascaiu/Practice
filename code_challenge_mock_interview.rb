@@ -14,14 +14,34 @@
 # parens: hash('(' => ')', '[' => ']', '{' => '}')
 
 def check(string)
-    string.split("(") #output: list of parens
-    open_parens = [ "(", "{", "[" ]
-    #loop through list of parens  and match the opening tags, assign them to values with ordered nr keys
-        Hash.new( 1=> "[" , 2=> "(" )
-     end
-     #loop through the list of parens and match the closing tags, & check against the output of the first loop
-     
+    closing_parens = [ ")", "]", "}" ]
+    opening_parens = [ "(", "{", "[" ]
+    pairs = { '(' => ')', '[' => ']', '{' => '}' }
+	existing_opening_tags = []
+	# p "This is my string: " + string
+	string.each_char do |char|
+		if opening_parens.include?(char)
+			existing_opening_tags.push(char)
+			# p "+++++++++"
+			# p existing_opening_tags
+		elsif closing_parens.include?(char)
+			if pairs.key(char) == existing_opening_tags.last
+				existing_opening_tags.pop
+				# p "@@@@@@"
+				# p existing_opening_tags
+			else
+				return false
+			end
+		end
+	end
+
+    if existing_opening_tags.empty?
+    	return true
+    end
+    return false
         
 end
 
+p check("abcd(ef)g[]hij[(])klmn") #returns false
+p check("abcd(ef)g[]hij[({})]klm(n(o()))p") #returns true
 
