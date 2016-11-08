@@ -1,11 +1,19 @@
-# Big O
+# Big O Notation tells you how complex is an algorithm depending on what you feed it.
+
+# O(1) = the execution time of this algorithm is CONSTANT. 
+# no matter how big our input is, it always takes the same amount of time to compute things.
+def first_element_is_red?(array)
+	array[0] == 'red' ? true : false
+end
+
+first_element_is_red?(['red', 'blue', 'green'])
+first_element_is_red?(['red', 'blue', 'green', 'brown', 'orange', 'pink', 'yellow'])
 
 # The "complexity" of this function is O(n) (order on n):
-# it's a linear graph(straight line). If we graph the time it takes to run this function for 
-# a 3 item array/ a 10,000 item array, we'd see that the time corresponds to the 
-# number of items in the array:
-# i.e. The further away in the list the number we're looking for, the longer it takes to find it.
-def item_in_list(to_check, the_list)
+# it's a linear graph(straight line). 
+# the execution time of an algorithm will grow LINEARLY depending on the input size: 
+
+def item_in_list?(to_check, the_list)
 	the_list.each do |element|
 		if to_check == element
 			return true
@@ -14,11 +22,12 @@ def item_in_list(to_check, the_list)
 	false
 end
 
-item_in_list(3, [1, 2, 3])
+item_in_list?(3, [1, 2, 3])
+item_in_list?(202, [1, 2, 3, 5, 7, 9, 100, 111, 123, 146, 199, 200, 201, 202, 300])
 
-# O(1) = called "constant time". 
-# no matter how big our input is, it always takes the same amount of time to compute things.
 
+# O(n^2)
+# for each increment of the input size, the speed of the algorithm will double.
 def all_combinations(the_list)
 	results = []
 	the_list.each do |item|
@@ -30,6 +39,7 @@ def all_combinations(the_list)
 end
 
 p all_combinations([1, 2, 3])
+p all_combinations([1, 2, 3, 4, 5, 6])
 
 
 
