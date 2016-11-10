@@ -46,7 +46,6 @@ all_combinations([1, 2, 3, 4, 5, 6])
 
 # O(log N)
 # the search grows quickly at the beginning and then gets slower in time if we increase the size of the input
-
 def binary_search(array, value, from=0, to=nil)
     to = array.count - 1 unless to
     mid = (from + to) / 2
