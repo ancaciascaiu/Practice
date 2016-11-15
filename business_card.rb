@@ -1,9 +1,10 @@
-def anca_fodor_ciascaiu(info = {})
+my_info = {
+	name: "Anca Fodor Ciascaiu",
 	# web developer
-	info["callme"] = "773-501-2982"
-	info["emailme"] = "anca.ciascaiu@gmail.com"
-	info["linkedin"] = "/in/ancafodorciascaiu"
-	puts info
-end
+    callme: "773-501-2982",
+    emailme: "anca.ciascaiu@gmail.com",
+    linkedin: "/in/ancafodorciascaiu"
+	}
 
-anca_fodor_ciascaiu()
+puts my_info	
+
