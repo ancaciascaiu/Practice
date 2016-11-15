@@ -1,6 +1,7 @@
 # Buuble sort
 # compare 2 numbers at a time and swap them if they are out of order
 # loop in a loop
+# Big O: O(N^2)
 
 
 def bubble_sort(array)
