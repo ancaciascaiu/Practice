@@ -10,11 +10,14 @@ def insertion_sort(array)
 		# inner loop compares val to previous val until previous val < val
 		j = i - 1 # previous index
 		while j >= 0
-			break if array[i] > array[j]
-			array[i] = array[j]
+
+			break if array[j] < val
+			# keep actual val before previous val
+			array[j + 1] = array[j]
 			j -= 1
+			p array , "iteration: #{i +1}"
 		end
-		array[j + 1] = val
+		array[j + 1] = val #consider current-next-val to be the actual val
 	end
 	array
 end
