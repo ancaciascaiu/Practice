@@ -1,3 +1,12 @@
+
+
+# ANCA FODOR CIASCAIU 
+#   web developer   
+
+
+
+
+
 my_info = {
 	name: "Anca Fodor Ciascaiu",
 	# web developer
