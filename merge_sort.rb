@@ -5,5 +5,11 @@
 # to the next comparison
 # Big O:   O(N logN)
 
+def merge_sort(array)
+	
+end
+
+p merge_sort([1,5,2,8,3,0,4,9,7,6])
+
 
 
