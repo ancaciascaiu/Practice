@@ -3,6 +3,7 @@
 # contains a value less than all the previous elements, 
 # it compares the element to all the previous elements 
 # before going on to the next comparison
+# Big O: O(N^2)
 
 def insertion_sort(array)
 	# outer loop iterates through all elements of the array
