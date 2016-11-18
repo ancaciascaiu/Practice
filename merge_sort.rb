@@ -7,9 +7,11 @@
 
 def merge_sort(array)
 	
+
 end
 
 p merge_sort([1,5,2,8,3,0,4,9,7,6])
+p merge_sort([1,100,2,8,3,3,4,9,2,20])
 
 
 
