@@ -23,9 +23,19 @@ end
 
 #recursive solution
 def recursive_palindrome?(array)
-	n = 0
-	if array[n] == array[-(n+1)]
+	#if length of array is 1 element, it already checked for all possible matches
+	if array.length <= 1
+		true
+	#exception goes first: if elements dont match, return false and exit the program
+	elsif array[0] != array[-1]
+		return false 
+	#if the 2 elements match, delete them and call the same method on the array with the elem that are left
+	else
+		array.pop
+		array.shift
+		recursive_palindrome?(array)
 	end
+	true
 end
 
 
