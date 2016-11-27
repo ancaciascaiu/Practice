@@ -5,18 +5,23 @@
 #iterative solution
 def is_palindrome?(array)
 	n = 0
-	length = array.length
-	0..(length.to_f/2).ceil.times do |element|
+	#get half the length of the array, rounded up(to run through half plus one for odd length)
+	half_length = (array.length.to_f/2).ceil
+	#loop through half the array
+	0..half_length.times do |element|
+		#match first to last elem, then second to last but one, etc
 		if array[n] != array[-(n+1)]
+			#the first time they don't match, return false and terminate loop
 			return false
 		end
 		n += 1
 	end
-	return true
+	#otherwise, if all elements match in the array, return true
+	true
 end
 
 
-recursive solution
+#recursive solution
 def recursive_palindrome?(array)
 	n = 0
 	if array[n] == array[-(n+1)]
