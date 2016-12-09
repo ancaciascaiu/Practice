@@ -13,13 +13,17 @@ def string_compression(string)
 		elsif letter == string[index-1]
 			letter_count += 1
 		#case 3: current letter is different than the previous letter
-		else
+		elsif letter != string[index-1]
 			new_string += letter_count.to_s
 			new_string += letter
 			letter_count = 1 
 		end
 	end
+	#catch exception when we execute the method for an empty string. We don't want to print a count of zero letters.
+	if letter_count != 0
+		new_string += letter_count.to_s
+	end
 	new_string
 end
 
-p string_compression("aabbbccccaaa")
+p string_compression("a")
