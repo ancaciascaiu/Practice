@@ -11,9 +11,10 @@ def stairs(n)
 	text_to_print = ""
 	n.times do |line|
 		text_to_print += (" " * (n-1)) + ("*" * (n-(n-1))) 
+		text_to_print << "\n"
 		n -= 1
 	end
-	text_to_print
+	text_to_print.split("\n").each{|line| p line}
 end
 
-p stairs(6)
+stairs(6)
