@@ -14,7 +14,7 @@ def stairs(n)
 		text_to_print << "\n"
 		n -= 1
 	end
-	text_to_print.split("\n").each{|line| p line}
+	text_to_print.split("\n").each{|line| puts line}
 end
 
 stairs(6)
