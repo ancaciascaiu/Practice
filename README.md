@@ -1,3 +1,3 @@
 # Practice
 
-I'm using this repo to practice algorithms and Java syntax.
+I'm using this repo to practice algorithms in Ruby and some Java syntax.
