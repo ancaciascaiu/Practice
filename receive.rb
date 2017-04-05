@@ -1,0 +1,2 @@
+#receiver for RabbitMQ
+
