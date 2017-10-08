@@ -4,36 +4,36 @@
 
 # Nouns are great candidates for classes: bike, gear
 class Gear
-  attr_reader :chainring, :cog, :wheel
+  attr_reader :chainring, :cog
 
-  def initialize(args)
-    @chainring = args.fetch(:chainring, 40)
-    @cog = args.fetch(:cog, 18)
-    @wheel = args[:wheel]
+  def initialize(chainring, cog)
+    @chainring = chainring
+    @cog = cog
   end
 
   def ratio
     chainring / cog.to_f
   end
 
-  def gear_inches
+  def gear_inches(diameter)
     ratio * diameter
-  end
-
-  def diameter
-    wheel.diameter
   end
 end
 
 class Wheel
-  attr_reader :rim, :tire
-  def initialize(rim, tire)
+  attr_reader :rim, :tire, :gear
+  def initialize(rim, tire, chainring, cog)
     @rim = rim
     @tire = tire
+    @gear = Gear.new(chainring, cog)
   end
 
   def diameter
     rim + (tire * 2)
+  end
+
+  def gear_inches
+    gear.gear_inches(diameter)
   end
 
   def circumference
@@ -41,9 +41,4 @@ class Wheel
   end
 end
 
-wheel = Wheel.new(26, 1.5)
-puts wheel.circumference
-
-gear = Gear.new(:chainring => 52, :cog => 11, :wheel => wheel)
-puts gear.gear_inches
-puts gear.ratio
+puts Wheel.new(26, 1.5, 52, 11).gear_inches
