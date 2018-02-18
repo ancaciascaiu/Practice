@@ -74,6 +74,15 @@ class Bicycle
   def default_chain
     '10-speed'
   end
+
+  def default_tire_size
+    raise NotImplementedError
+  end
+
+  def spares
+    { tire_size: tire_size,
+      chain: chain }
+  end
 end
 
 class RoadBike < Bicycle
@@ -89,9 +98,7 @@ class RoadBike < Bicycle
   end
 
   def spares
-    {chain:       chain,
-     tire_size:   tire_size,
-     tape_color:  tape_color}
+    super.merge({ tape_color: tape_color })
   end
 end
 
@@ -109,16 +116,29 @@ class MountainBike < Bicycle
   end
 
   def spares
-    {chain:       chain,
-     tire_size:   tire_size,
-     front_shock: front_shock,
-     rear_shock:  rear_shock}
+    super.merge({ front_shock: front_shock,
+                  rear_shock:  rear_shock })
   end
 end
 
 class RecumbentBike < Bicycle
+  attr_reader :flag
+
+  def initialize(args)
+    @flag = args[:flag]
+    super(args)
+  end
+
   def default_chain
     '9-speed'
+  end
+
+  def default_tire_size
+    '28'
+  end
+
+  def spares
+    super.merge({ flag: flag })
   end
 end
 
