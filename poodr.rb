@@ -63,28 +63,65 @@ class Mechanic
 end
 
 class Bicycle
-  attr_reader :style, :size, :tape_color, :front_shock, :rear_shock
+  attr_reader :size, :chain, :tire_size
 
   def initialize(args)
-    @style       = args[:style]
-    @size        = args[:size]
-    @tape_color  = args[:tape_color]
-    @front_shock = args[:front_shock]
-    @rear_shock  = args[:rear_shock]
+    @size      = args[:size]
+    @chain     = args[:chain] || default_chain
+    @tire_size = args[:tire_size] || default_tire_size
   end
 
-  def spares
-    if style == :road
-      {chain:      '10-speed',
-       tire_size:  '23',
-       tape_color: tape_color}
-    else
-      {chain:      '10-speed',
-       tire_size:  '2.1',
-       rear_shock: rear_shock}
-    end
+  def default_chain
+    '10-speed'
   end
 end
 
-bike = Bicycle.new(style: :mountain, size: 'S', front_shock: 'Manitou', rear_shock: 'Fox')
-p bike.spares
+class RoadBike < Bicycle
+  attr_reader :tape_color
+
+  def initialize(args)
+    @tape_color = args[:tape_color]
+    super(args)
+  end
+
+  def default_tire_size
+    '23'
+  end
+
+  def spares
+    {chain:       chain,
+     tire_size:   tire_size,
+     tape_color:  tape_color}
+  end
+end
+
+class MountainBike < Bicycle
+  attr_reader :front_shock, :rear_shock
+
+  def initialize(args)
+    @front_shock = args[:front_shock]
+    @rear_shock  = args[:rear_shock]
+    super(args)
+  end
+
+  def default_tire_size
+    '2.1'
+  end
+
+  def spares
+    {chain:       chain,
+     tire_size:   tire_size,
+     front_shock: front_shock,
+     rear_shock:  rear_shock}
+  end
+end
+
+class RecumbentBike < Bicycle
+  def default_chain
+    '9-speed'
+  end
+end
+
+# bike = RoadBike.new(style: :road, size: 'S', tape_color: 'red')
+# p bike.spares
+p RecumbentBike.new(size: 'S')
