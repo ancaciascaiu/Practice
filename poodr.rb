@@ -65,7 +65,7 @@ end
 class Bicycle
   attr_reader :size, :parts
 
-  def initialize(args)
+  def initialize(args={})
     @size  = args[:size]
     @parts = args[:parts]
   end
@@ -76,33 +76,45 @@ class Bicycle
 end
 
 class Parts
-  attr_reader :chain, :tire_size
+  attr_reader :parts
 
-  def initialize(args={})
-    @chain     = args[:chain]     || default_chain
-    @tire_size = args[:tire_size] || default_tire_size
-    post_initialize(args)
+  def initialize(parts)
+    @parts = parts
+    # @chain     = args[:chain]     || default_chain
+    # @tire_size = args[:tire_size] || default_tire_size
+    # post_initialize(args)
   end
 
   def spares
-    { tire_size: tire_size,
-      chain:     chain }.merge(local_spares)
+    parts.select {|part| part.needs_spare }
+    # { tire_size: tire_size,
+    #   chain:     chain }.merge(local_spares)
   end
 
-  def post_initialize(args)
-    nil
-  end
+  # def post_initialize(args)
+  #   nil
+  # end
 
-  def default_chain
-    '10-speed'
-  end
+  # def default_chain
+  #   '10-speed'
+  # end
 
-  def default_tire_size
-    raise NotImplementedError
-  end
+  # def default_tire_size
+  #   raise NotImplementedError
+  # end
 
-  def local_spares
-    {}
+  # def local_spares
+  #   {}
+  # end
+end
+
+class Part
+  attr_reader :name, :description, :needs_spare
+
+  def initialize(args)
+    @name        = args[:name]
+    @description = args[:description]
+    @needs_spare = args.fetch(:needs_spare, true)
   end
 end
 
@@ -160,9 +172,12 @@ class RecumbentBikeParts < Parts
   end
 end
 
-road_bike = Bicycle.new(size: 'L', parts: RoadBikeParts.new(tape_color: 'red'))
-p road_bike.size
+chain         = Part.new(name: 'chain', description: '10-speed')
+road_tire     = Part.new(name: 'tire_size', description: '23')
+mountain_tire = Part.new(name: 'tire_size', description: '2.1')
+tape          = Part.new(name: 'tape_color', description: 'red')
+rear_shock    = Part.new(name: 'rear_shock', description: 'Fox')
+front_shock   = Part.new(name: 'front_shock', description: 'Manitou', needs_spare: false)
+
+road_bike = Bicycle.new(size: 'L', parts: Parts.new([chain, road_tire, tape]))
 p road_bike.spares
-mountain_bike = Bicycle.new(size: 'L', parts: MountainBikeParts.new(rear_shock: 'Fox'))
-p mountain_bike.size
-p mountain_bike.spares
