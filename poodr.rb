@@ -63,14 +63,30 @@ class Mechanic
 end
 
 class Bicycle
-  attr_reader :size, :chain, :tire_size
+  attr_reader :size, :parts
 
   def initialize(args)
-    @size      = args[:size]
-    @chain     = args[:chain] || default_chain
-    @tire_size = args[:tire_size] || default_tire_size
+    @size  = args[:size]
+    @parts = args[:parts]
+  end
 
+  def spares
+    parts.spares
+  end
+end
+
+class Parts
+  attr_reader :chain, :tire_size
+
+  def initialize(args={})
+    @chain     = args[:chain]     || default_chain
+    @tire_size = args[:tire_size] || default_tire_size
     post_initialize(args)
+  end
+
+  def spares
+    { tire_size: tire_size,
+      chain:     chain }.merge(local_spares)
   end
 
   def post_initialize(args)
@@ -85,33 +101,28 @@ class Bicycle
     raise NotImplementedError
   end
 
-  def spares
-    { tire_size: tire_size,
-      chain: chain }.merge(local_spares)
-  end
-
   def local_spares
     {}
   end
 end
 
-class RoadBike < Bicycle
+class RoadBikeParts < Parts
   attr_reader :tape_color
 
   def post_initialize(args)
     @tape_color = args[:tape_color]
   end
 
-  def default_tire_size
-    '23'
-  end
-
   def local_spares
     { tape_color: tape_color }
   end
+
+  def default_tire_size
+    '23'
+  end
 end
 
-class MountainBike < Bicycle
+class MountainBikeParts < Parts
   attr_reader :front_shock, :rear_shock
 
   def post_initialize(args)
@@ -129,7 +140,7 @@ class MountainBike < Bicycle
   end
 end
 
-class RecumbentBike < Bicycle
+class RecumbentBikeParts < Parts
   attr_reader :flag
 
   def post_initialize(args)
@@ -149,7 +160,9 @@ class RecumbentBike < Bicycle
   end
 end
 
-# bike = RoadBike.new(style: :road, size: 'S', tape_color: 'red')
-# p bike.spares
-bent = RecumbentBike.new(size: 'S', flag: true)
-p bent.spares
+road_bike = Bicycle.new(size: 'L', parts: RoadBikeParts.new(tape_color: 'red'))
+p road_bike.size
+p road_bike.spares
+mountain_bike = Bicycle.new(size: 'L', parts: MountainBikeParts.new(rear_shock: 'Fox'))
+p mountain_bike.size
+p mountain_bike.spares
