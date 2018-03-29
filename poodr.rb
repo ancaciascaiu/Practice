@@ -3,6 +3,7 @@
 # Please see all commits to understand the stages of building this code
 
 # Nouns are great candidates for classes: bike, gear
+
 class Gear
   attr_reader :chainring, :cog
 
@@ -75,37 +76,21 @@ class Bicycle
   end
 end
 
+require 'forwardable'
 class Parts
+  extend Forwardable
+  def_delegators :@parts, :size, :each
+  include Enumerable
+
   attr_reader :parts
 
   def initialize(parts)
     @parts = parts
-    # @chain     = args[:chain]     || default_chain
-    # @tire_size = args[:tire_size] || default_tire_size
-    # post_initialize(args)
   end
 
   def spares
-    parts.select {|part| part.needs_spare }
-    # { tire_size: tire_size,
-    #   chain:     chain }.merge(local_spares)
+    select {|part| part.needs_spare }
   end
-
-  # def post_initialize(args)
-  #   nil
-  # end
-
-  # def default_chain
-  #   '10-speed'
-  # end
-
-  # def default_tire_size
-  #   raise NotImplementedError
-  # end
-
-  # def local_spares
-  #   {}
-  # end
 end
 
 class Part
@@ -118,59 +103,10 @@ class Part
   end
 end
 
-class RoadBikeParts < Parts
-  attr_reader :tape_color
-
-  def post_initialize(args)
-    @tape_color = args[:tape_color]
-  end
-
-  def local_spares
-    { tape_color: tape_color }
-  end
-
-  def default_tire_size
-    '23'
-  end
-end
-
-class MountainBikeParts < Parts
-  attr_reader :front_shock, :rear_shock
-
-  def post_initialize(args)
-    @front_shock = args[:front_shock]
-    @rear_shock  = args[:rear_shock]
-  end
-
-  def default_tire_size
-    '2.1'
-  end
-
-  def local_spares
-    { front_shock: front_shock,
-      rear_shock:  rear_shock }
-  end
-end
-
-class RecumbentBikeParts < Parts
-  attr_reader :flag
-
-  def post_initialize(args)
-    @flag = args[:flag]
-  end
-
-  def default_chain
-    '9-speed'
-  end
-
-  def default_tire_size
-    '28'
-  end
-
-  def local_spares
-    { flag: flag }
-  end
-end
+module PartsFactory
+  def self.build(config,
+                 part_class = Part,
+                 parts_class = Parts)
 
 chain         = Part.new(name: 'chain', description: '10-speed')
 road_tire     = Part.new(name: 'tire_size', description: '23')
@@ -179,5 +115,7 @@ tape          = Part.new(name: 'tape_color', description: 'red')
 rear_shock    = Part.new(name: 'rear_shock', description: 'Fox')
 front_shock   = Part.new(name: 'front_shock', description: 'Manitou', needs_spare: false)
 
-road_bike = Bicycle.new(size: 'L', parts: Parts.new([chain, road_tire, tape]))
-p road_bike.spares
+road_bike = Bicycle.new(size: 'L', parts: Parts.new([chain, road_tire, tape, rear_shock]))
+p road_bike
+p road_bike.spares.size
+p road_bike.parts.size
