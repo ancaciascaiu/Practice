@@ -107,6 +107,8 @@ module PartsFactory
   def self.build(config,
                  part_class = Part,
                  parts_class = Parts)
+  end
+end
 
 chain         = Part.new(name: 'chain', description: '10-speed')
 road_tire     = Part.new(name: 'tire_size', description: '23')
