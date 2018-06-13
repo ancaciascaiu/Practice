@@ -12,18 +12,15 @@ class Bottles
 
   def verse(number_of_bottles)
     if number_of_bottles.zero?
-      first_part  = 'No more bottles of beer on the wall, no more bottles of beer.'
-      second_part = 'Go to the store and buy some more, 99 bottles of beer on the wall.'
+      "No more bottles of beer on the wall, no more bottles of beer.\n" \
+      "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
     elsif number_of_bottles == 1
-      first_part  = "#{number_of_bottles} bottle of beer on the wall, #{number_of_bottles} bottle of beer."
-      second_part = 'Take it down and pass it around, no more bottles of beer on the wall.'
+      "#{number_of_bottles} bottle of beer on the wall, #{number_of_bottles} bottle of beer.\n" \
+      "Take it down and pass it around, no more bottles of beer on the wall.\n"
     else
-      bottle_str = number_of_bottles == 2 ? 'bottle' : 'bottles'
-      first_part  = "#{number_of_bottles} bottles of beer on the wall, #{number_of_bottles} bottles of beer."
-      second_part = 'Take one down and pass it around, ' \
-                    "#{number_of_bottles - 1} #{bottle_str} of beer on the wall."
+      plural = 's' unless number_of_bottles == 2
+      "#{number_of_bottles} bottles of beer on the wall, #{number_of_bottles} bottles of beer.\n" \
+      "Take one down and pass it around, #{number_of_bottles - 1} bottle#{plural} of beer on the wall.\n"
     end
-
-    first_part + "\n" + second_part + "\n"
   end
 end
