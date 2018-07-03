@@ -5,19 +5,13 @@ class Intersection
   attr_reader :stoplight1, :stoplight2
 
   def initialize
-    @stoplight1 = StopLight.new
-    @stoplight2 = StopLight.new
+    @stoplight1 = StopLight.new(red: true, yellow: false, green: false)
+    @stoplight2 = StopLight.new(red: false, yellow: false, green: true)
   end
 
   def run
     loop do
-      # to start
-      if stoplight1.red && stoplight2.red
-        stoplight1.red = false
-        stoplight1.green = true
-        p stoplight1
-        p stoplight2
-      elsif stoplight1.green
+      if stoplight1.green
         stoplight1.green = false
         stoplight1.yellow = true
         p stoplight1
@@ -49,7 +43,7 @@ end
 class StopLight
   attr_accessor :red, :yellow, :green
 
-  def initialize
+  def initialize(red:, yellow:, green:)
     @red    = true
     @yellow = false
     @green  = false
