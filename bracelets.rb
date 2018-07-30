@@ -25,9 +25,10 @@
 # puts "_XO"
 # puts "__X"
 
-#width = number of knots in a line
+#width = number of knots in a line. 
 def simple_bracelet(length, width, nr_of_colors)
-	if nr_of_colors > width
+	nr_of_threads = width + 1
+	if nr_of_colors > nr_of_threads
 		puts "Number of colors needs to be equal or less than width"
 		return
 	end
@@ -40,8 +41,11 @@ def simple_bracelet(length, width, nr_of_colors)
 	end
 
 	length.times do |i| # 1 sequence
-		puts knots.join(',')
+		width.times do |w|
+			knots.unshift(knots.pop)
+			puts knots.join(',')
+		end
 	end
 end
 
-simple_bracelet(1, 3, 2)
+simple_bracelet(3, 5, 2)
