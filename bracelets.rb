@@ -26,26 +26,38 @@
 # puts "__X"
 
 #width = number of knots in a line. 
+
+require 'paint'
+
+def color_block(color)
+  Paint['**', color, color]
+end
+
+COLORS = [:black, :red, :green, :yellow, :blue, :magenta, :cyan, :white]
+
 def simple_bracelet(length, width, nr_of_colors)
 	nr_of_threads = width + 1
 	if nr_of_colors > nr_of_threads
 		puts "Number of colors needs to be equal or less than width"
 		return
+  elsif nr_of_colors > COLORS.length
+    puts "Number of colors must be less then #{COLORS.length}"
+    return
 	end
 
-	colors = ['X', 'O', 'A', 'Z', 'W', 'S', 'H'].sample(nr_of_colors)
-	knots = colors
+	chosen_colors = COLORS.sample(nr_of_colors).map { |color| color_block(color) }
+	color_pattern = chosen_colors
 
-	until knots.length == width
-		knots << colors.sample
+	until color_pattern.length == width
+		color_pattern << chosen_colors.sample
 	end
 
-	length.times do |i| # 1 sequence
-		width.times do |w|
-			knots.unshift(knots.pop)
-			puts knots.join(',')
+	length.times do
+		width.times do
+			color_pattern.unshift(color_pattern.pop)
+			puts color_pattern.join('')
 		end
 	end
 end
 
-simple_bracelet(3, 5, 2)
+simple_bracelet(3, 5, 3)
