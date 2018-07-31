@@ -47,11 +47,6 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-unless options[:length]
-  puts "Please provide length option!"
-  return
-end
-
 def color_block(color)
   Paint['**', color, color]
 end
