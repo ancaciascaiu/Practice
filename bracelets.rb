@@ -1,4 +1,5 @@
 #! /usr/bin/env ruby
+# INCOMPLETE!!! -> check out 'bracelet' file.
 
 # # simple bracelet:(min 2 colors, min 4 threads, any nr of threads)
 # # knots:
@@ -85,5 +86,3 @@ end
 
 simple_bracelet(options[:length], options[:width], options[:nr_of_colors])
 
-#option parser!!!!!
-#simple_bracelet(3, 5, 3)
