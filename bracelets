@@ -19,7 +19,7 @@ OptionParser.new do |opts|
 end.parse!
 
 def color_block(color)
-	Paint['**', color, color]
+	Paint['  ', color, color]
 end
 
 COLORS = [:black, :red, :green, :yellow, :blue, :magenta, :cyan, :white]
@@ -49,6 +49,13 @@ def simple_bracelet(length, width, nr_of_colors)
 		end
 	end
 end
+
+
+
+
+
+
+
 
 def v_shaped_bracelet(length, width, nr_of_colors)
 	nr_of_threads = width + 2
@@ -82,7 +89,7 @@ def v_shaped_bracelet(length, width, nr_of_colors)
 	end
 end
 
-simple_bracelet(options[:length], options[:width], options[:nr_of_colors])
+# simple_bracelet(options[:length], options[:width], options[:nr_of_colors])
 v_shaped_bracelet(options[:length], options[:width], options[:nr_of_colors])
 
 # # simple bracelet:(min 2 colors, min 4 threads, any nr of threads)
