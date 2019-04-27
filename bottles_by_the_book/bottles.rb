@@ -10,8 +10,8 @@ class Bottles
   def verse(number)
       "#{quantity(number).capitalize} #{container(number)} of beer on the wall, " +
       "#{quantity(number)} #{container(number)} of beer.\n" +
-      action(number) +
-      "#{quantity(successor(number))} #{container(number-1)} of beer on the wall.\n"
+      "#{action(number)}, " +
+      "#{quantity(successor(number))} #{container(successor(number))} of beer on the wall.\n"
   end
 
   def container(number)
@@ -40,9 +40,9 @@ class Bottles
 
   def action(number)
     if number == 0
-      "Go to the store and buy some more, "
+      "Go to the store and buy some more"
     else
-      "Take #{pronoun(number)} down and pass it around, "
+      "Take #{pronoun(number)} down and pass it around"
     end
   end
 
